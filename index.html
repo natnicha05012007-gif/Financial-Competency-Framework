@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Competency - ระดับอุดมศึกษา</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #003366;
+            --primary-green: #00843D;
+            --primary-gold: #D4AF37;
+            --bg-color: #F8F9FA;
+            --text-main: #333333;
+            --text-light: #666666;
+            --card-bg: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Sarabun', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            overflow: hidden;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 200px; }
+        }
+
+        /* 1. Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-navy), #005b9f);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            position: relative;
+            border-bottom: 5px solid var(--primary-gold);
+        }
+
+        .header-icon {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .header-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        header h2 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--primary-gold);
+            margin-bottom: 15px;
+        }
+
+        .target-badge {
+            display: inline-block;
+            background-color: var(--primary-green);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(0, 132, 61, 0.4);
+        }
+
+        /* Main Content Area */
+        .content {
+            padding: 40px 30px;
+        }
+
+        /* 2. Financial Characteristics Card */
+        .char-card {
+            background-color: #F0F7F4;
+            border-left: 6px solid var(--primary-green);
+            padding: 25px;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 40px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .char-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .char-card h3 {
+            color: var(--primary-green);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem;
+        }
+
+        .char-card p {
+            font-size: 1.1rem;
+        }
+
+        /* 3. K-S-A Interactive Tabs */
+        .ksa-section {
+            margin-bottom: 50px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            border-bottom: 2px solid #E0E0E0;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--primary-gold);
+            transition: width 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary-navy);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-navy);
+        }
+
+        .tab-btn.active::after {
+            width: 100%;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #E0E0E0;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content ul {
+            list-style-position: inside;
+            padding-left: 10px;
+        }
+
+        .tab-content li {
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+            position: relative;
+            padding-left: 25px;
+            list-style: none;
+        }
+
+        .tab-content li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-green);
+            font-weight: bold;
+        }
+
+        /* 4. Sub-competency Section */
+        .sub-comp-section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--primary-navy);
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-gold);
+            margin: 10px auto 0;
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .accordion-card {
+            background-color: white;
+            border: 1px solid #EAEAEA;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .accordion-card:hover {
+            border-color: var(--primary-green);
+            box-shadow: 0 5px 15px rgba(0, 132, 61, 0.1);
+        }
+
+        .accordion-header {
+            padding: 18px 20px;
+            background-color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--primary-navy);
+            transition: background-color 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background-color: #F9F9F9;
+        }
+
+        .icon-plus {
+            color: var(--primary-gold);
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-card.active .icon-plus {
+            transform: rotate(45deg);
+            color: var(--primary-green);
+        }
+
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 20px;
+            background-color: #FAFAFA;
+            color: var(--text-light);
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .accordion-card.active .accordion-body {
+            max-height: 200px; /* Adjust if content is longer */
+            padding: 15px 20px;
+            border-top: 1px solid #EAEAEA;
+        }
+
+        /* 5. Activity Ideas Section */
+        .activities-section {
+            background-color: #F4F8FA;
+            padding: 40px 30px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .activity-item {
+            text-align: center;
+            background: white;
+            padding: 25px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .activity-item:hover {
+            transform: translateY(-8px);
+        }
+
+        .act-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .activity-item h4 {
+            color: var(--primary-navy);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .activity-item p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        /* 6. Key Message Banner */
+        .key-message {
+            background: linear-gradient(to right, var(--primary-green), #00A651);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            header h2 { font-size: 1rem; }
+            .tabs { flex-direction: column; border-bottom: none; }
+            .tab-btn { text-align: left; border-left: 3px solid transparent; padding: 10px 15px; }
+            .tab-btn::after { display: none; }
+            .tab-btn.active { border-left-color: var(--primary-gold); background-color: #F0F0F0; }
+            .content { padding: 30px 20px; }
+            .key-message { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- 1. Header -->
+        <header>
+            <div class="header-icon">🎓</div>
+            <h1>สมรรถนะทางการเงิน</h1>
+            <h2>(Financial Competency Framework)</h2>
+            <div class="target-badge">ช่วงวัย: ระดับอุดมศึกษา</div>
+        </header>
+
+        <div class="content">
+            <!-- 2. Financial Characteristics Card -->
+            <div class="char-card">
+                <h3><span>💡</span> คุณลักษณะผู้เรียน (Financial Characteristics)</h3>
+                <p>เอกสารนี้มุ่งเน้น <strong>การจัดการเรียนรู้แบบฐานสมรรถนะที่ประยุกต์ใช้ได้จริงในชีวิตประจำวัน</strong> เพื่อให้เหมาะสมกับพัฒนาการและบริบททางเศรษฐกิจ โดยบ่มเพาะลักษณะนิสัยทางการเงินที่ดีอย่างต่อเนื่อง เตรียมความพร้อมสู่วัยทำงานอย่างมั่นคง</p>
+            </div>
+
+            <!-- 3. K-S-A Interactive Tabs -->
+            <div class="ksa-section">
+                <h2 class="section-title">องค์ประกอบสมรรถนะ (K-S-A)</h2>
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="openTab('knowledge')">Knowledge (ความรู้)</button>
+                    <button class="tab-btn" onclick="openTab('skills')">Skills (ทักษะ)</button>
+                    <button class="tab-btn" onclick="openTab('attitudes')">Attitudes (ทัศนคติ)</button>
+                </div>
+
+                <div id="knowledge" class="tab-content active">
+                    <ul>
+                        <li>มีความรู้ความเข้าใจใน 6 ด้านหลักของการเงินส่วนบุคคล</li>
+                        <li>เข้าใจเครื่องมือทางการเงิน เช่น บัญชีเงินฝาก บัตรเครดิต และสินเชื่อเพื่อการศึกษา</li>
+                        <li>รู้เท่าทันความเสี่ยงและเข้าใจสิทธิของตนเองในฐานะผู้บริโภคทางการเงิน</li>
+                    </ul>
+                </div>
+
+                <div id="skills" class="tab-content">
+                    <ul>
+                        <li>สามารถวางแผนการใช้จ่ายและจัดทำงบประมาณส่วนบุคคลได้จริง</li>
+                        <li>มีทักษะในการเปรียบเทียบข้อมูลก่อนตัดสินใจซื้อหรือลงทุน</li>
+                        <li>สามารถรับมือกับปัญหาทางการเงินเบื้องต้น และใช้เครื่องมือดิจิทัลทางการเงินได้อย่างปลอดภัย</li>
+                    </ul>
+                </div>
+
+                <div id="attitudes" class="tab-content">
+                    <ul>
+                        <li>ตระหนักถึงความสำคัญของการออมเงินเพื่ออนาคต</li>
+                        <li>มีวินัยและความรับผิดชอบต่อภาระผูกพันทางการเงิน (เช่น การชำระหนี้)</li>
+                        <li>มีความระมัดระวัง รอบคอบ และไม่ประมาทในการใช้จ่าย</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 4. Sub-competency Section -->
+            <div class="sub-comp-section">
+                <h2 class="section-title">6 ด้านสมรรถนะสำคัญ</h2>
+                <div class="grid-cards">
+                    <!-- Card 1 -->
+                    <div class="accordion-card" onclick="toggleAccordion(this)">
+                        <div class="accordion-header">
+                            1. การจัดการรายได้
+                            <span class="icon-plus">+</span>
+                        </div>
+                        <div class="accordion-body">
+                            <p>เข้าใจแหล่งที่มาของรายได้ เช่น เงินสนับสนุนจากครอบครัว ทุนการศึกษา หรือรายได้พิเศษ และตระหนักถึงคุณค่าของเงินที่หามาได้</p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="accordion-card" onclick="toggleAccordion(this)">
+                        <div class="accordion-header">
+                            2. การวางแผนใช้จ่าย
+                            <span class="icon-plus">+</span>
+                        </div>
+                        <div class="accordion-body">
+                            <p>สามารถแบ่งแยกความจำเป็น (Need) และความต้องการ (Want) รวมถึงการจัดทำงบประมาณเพื่อไม่ให้ใช้จ่ายเกินตัว</p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="accordion-card" onclick="toggleAccordion(this)">
+                        <div class="accordion-header">
+                            3. การออมและการลงทุน
+                            <span class="icon-plus">+</span>
+                        </div>
+                        <div class="accordion-body">
+                            <p>กำหนดเป้าหมายการออมที่ชัดเจน และเริ่มศึกษาข้อมูลพื้นฐานเกี่ยวกับการลงทุนเพื่อสร้างความมั่งคั่งในระยะยาว</p>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="accordion-card" onclick="toggleAccordion(this)">
+                        <div class="accordion-header">
+                            4. การจัดการหนี้สิน
+                            <span class="icon-plus">+</span>
+                        </div>
+                        <div class="accordion-body">
+                            <p>เข้าใจภาระผูกพันของการเป็นหนี้ (เช่น กยศ. หรือบัตรเครดิต) และรู้วิธีบริหารจัดการเพื่อป้องกันปัญหาหนี้สินล้นพ้นตัว</p>
+                        </div>
+                    </div>
+                    <!-- Card 5 -->
+                    <div class="accordion-card" onclick="toggleAccordion(this)">
+                        <div class="accordion-header">
+                            5. การจัดการความเสี่ยง
+                            <span class="icon-plus">+</span>
+                        </div>
+                        <div class="accordion-body">
+                            <p>รู้จักวิธีรับมือกับเหตุการณ์ไม่คาดฝัน เข้าใจหลักการเบื้องต้นของการทำประกันภัยและการเตรียมเงินสำรองฉุกเฉิน</p>
+                        </div>
+                    </div>
+                    <!-- Card 6 -->
+                    <div class="accordion-card" onclick="toggleAccordion(this)">
+                        <div class="accordion-header">
+                            6. การรักษาสิทธิทางการเงิน
+                            <span class="icon-plus">+</span>
+                        </div>
+                        <div class="accordion-body">
+                            <p>รู้สิทธิหน้าที่ของตนเอง ระมัดระวังภัยกลโกงทางออนไลน์ (Cyber Threats) และรู้ช่องทางการร้องเรียนเมื่อถูกเอาเปรียบ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Activity Ideas Section -->
+            <div class="activities-section">
+                <h2 class="section-title">แนวทางการเรียนรู้ที่ยืดหยุ่น</h2>
+                <div class="activity-grid">
+                    <div class="activity-item">
+                        <span class="act-icon">🎭</span>
+                        <h4>บทบาทสมมติ (Role-play)</h4>
+                        <p>จำลองสถานการณ์การขอสินเชื่อ การสัมภาษณ์งาน หรือการเจรจาเมื่อเกิดปัญหาทางการเงิน</p>
+                    </div>
+                    <div class="activity-item">
+                        <span class="act-icon">📊</span>
+                        <h4>กรณีศึกษา (Case Study)</h4>
+                        <p>วิเคราะห์ข่าวกลโกงทางการเงิน การลงทุนที่ผิดพลาด เพื่อถอดบทเรียนเตือนภัย</p>
+                    </div>
+                    <div class="activity-item">
+                        <span class="act-icon">📱</span>
+                        <h4>โปรเจกต์จำลอง (Project)</h4>
+                        <p>ทดลองทำบัญชีรายรับ-รายจ่ายผ่านแอปพลิเคชัน หรือแข่งจัดพอร์ตการลงทุนจำลอง</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. Key Message Banner -->
+        <div class="key-message">
+            "เพื่อให้ประชาชนมีความมั่นคงทางการเงินและมีคุณภาพชีวิตที่ดีอย่างยั่งยืนในอนาคต"
+        </div>
+
+    </div>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // K-S-A Tab functionality
+        function openTab(tabName) {
+            // Hide all tab content
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab and add active class to clicked button
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Sub-competency Accordion functionality
+        function toggleAccordion(element) {
+            // Check if currently clicked element is already active
+            const isActive = element.classList.contains('active');
+            
+            // Optional: Close all other accordions (uncomment below lines if you want only 1 open at a time)
+            /*
+            const allCards = document.querySelectorAll('.accordion-card');
+            allCards.forEach(card => {
+                card.classList.remove('active');
+            });
+            */
+
+            // Toggle active state for clicked element
+            if (!isActive) {
+                element.classList.add('active');
+            } else {
+                element.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
